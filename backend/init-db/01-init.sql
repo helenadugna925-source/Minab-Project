@@ -1,0 +1,2 @@
+CREATE DATABASE events_db;
+GRANT ALL PRIVILEGES ON DATABASE events_db TO postgres;

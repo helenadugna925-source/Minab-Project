@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    container_name: local_event_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  hasura:
+    image: hasura/graphql-engine:v2.38.0
+    restart: always
+    container_name: local_event_hasura
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@postgres:5432/events_db
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256","key":"supersecretkeylocaldev1234567891","claims_namespace":"https://hasura.io/jwt/claims"}'
+      HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
+      HASURA_GRAPHQL_ADMIN_INTERNAL_ERRORS: "true"
+      HASURA_GRAPHQL_UNAUTHENTICATED_ROLE: anonymous
+    volumes:
+      - ../hasura:/hasura-metadata
+
+volumes:
+  postgres_data:

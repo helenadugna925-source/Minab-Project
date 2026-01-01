@@ -1,0 +1,2 @@
+2025/12/23 10:16:37 ✅ Connected to PostgreSQL successfully
+2025/12/23 10:16:37 🚀 Backend running on http://localhost:8082

@@ -1,0 +1,20 @@
+﻿go : 2025/12/23 14:42:31 Ô£à Connected to PostgreSQL successfully
+At line:1 char:1
++ go run . 2>&1 | Out-File -FilePath backend_startup.log -Encoding utf8
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2025/12/23 14:4...QL successf 
+   ully:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /healthz                  --> main.main.func1 (3 handlers)
+[GIN-debug] POST   /login                    --> local-event-backend/handlers.LoginHandler (3 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8082
+2025/12/23 14:42:31 ­ƒÜÇ Backend running on http://localhost:8082
